@@ -1,0 +1,75 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.wzjian.jokercg"
+4    android:versionCode="818"
+5    android:versionName="8.18" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="19"
+8-->C:\code\jokercg\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->C:\code\jokercg\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
+11-->C:\code\jokercg\app\src\main\AndroidManifest.xml:5:5-6:47
+11-->C:\code\jokercg\app\src\main\AndroidManifest.xml:5:22-77
+12    <!-- 或者 -->
+13    <uses-permission android:name="android.permission.BLUETOOTH" />
+13-->C:\code\jokercg\app\src\main\AndroidManifest.xml:8:5-68
+13-->C:\code\jokercg\app\src\main\AndroidManifest.xml:8:22-65
+14
+15    <application
+15-->C:\code\jokercg\app\src\main\AndroidManifest.xml:9:5-33:19
+16        android:allowBackup="true"
+16-->C:\code\jokercg\app\src\main\AndroidManifest.xml:11:9-35
+17        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+17-->[androidx.core:core:1.3.1] C:\Users\WZJian\.gradle\caches\transforms-3\081f08c6f4a5e7c6e59b3c77d85f0f2a\transformed\core-1.3.1\AndroidManifest.xml:24:18-86
+18        android:debuggable="true"
+19        android:exported="true"
+19-->C:\code\jokercg\app\src\main\AndroidManifest.xml:10:9-32
+20        android:icon="@mipmap/ic_launcher"
+20-->C:\code\jokercg\app\src\main\AndroidManifest.xml:12:9-43
+21        android:label="@string/app_name"
+21-->C:\code\jokercg\app\src\main\AndroidManifest.xml:13:9-41
+22        android:roundIcon="@mipmap/ic_launcher_round"
+22-->C:\code\jokercg\app\src\main\AndroidManifest.xml:14:9-54
+23        android:supportsRtl="true"
+23-->C:\code\jokercg\app\src\main\AndroidManifest.xml:15:9-35
+24        android:theme="@style/Theme.XposedSample" >
+24-->C:\code\jokercg\app\src\main\AndroidManifest.xml:16:9-50
+25        <meta-data
+25-->C:\code\jokercg\app\src\main\AndroidManifest.xml:17:9-19:35
+26            android:name="xposedmodule"
+26-->C:\code\jokercg\app\src\main\AndroidManifest.xml:18:13-40
+27            android:value="true" />
+27-->C:\code\jokercg\app\src\main\AndroidManifest.xml:19:13-33
+28        <meta-data
+28-->C:\code\jokercg\app\src\main\AndroidManifest.xml:20:9-22:37
+29            android:name="xposeddescription"
+29-->C:\code\jokercg\app\src\main\AndroidManifest.xml:21:13-45
+30            android:value="创高秒刷模块" />
+30-->C:\code\jokercg\app\src\main\AndroidManifest.xml:22:13-35
+31        <meta-data
+31-->C:\code\jokercg\app\src\main\AndroidManifest.xml:23:9-25:33
+32            android:name="xposedminversion"
+32-->C:\code\jokercg\app\src\main\AndroidManifest.xml:24:13-44
+33            android:value="82" />
+33-->C:\code\jokercg\app\src\main\AndroidManifest.xml:25:13-31
+34
+35        <activity android:name="com.wzjian.jokercg.MainActivity" >
+35-->C:\code\jokercg\app\src\main\AndroidManifest.xml:26:9-32:20
+35-->C:\code\jokercg\app\src\main\AndroidManifest.xml:26:19-47
+36            <intent-filter>
+36-->C:\code\jokercg\app\src\main\AndroidManifest.xml:27:13-31:29
+37                <action android:name="android.intent.action.MAIN" />
+37-->C:\code\jokercg\app\src\main\AndroidManifest.xml:28:17-69
+37-->C:\code\jokercg\app\src\main\AndroidManifest.xml:28:25-66
+38
+39                <category android:name="android.intent.category.LAUNCHER" />
+39-->C:\code\jokercg\app\src\main\AndroidManifest.xml:30:17-77
+39-->C:\code\jokercg\app\src\main\AndroidManifest.xml:30:27-74
+40            </intent-filter>
+41        </activity>
+42    </application>
+43
+44</manifest>
