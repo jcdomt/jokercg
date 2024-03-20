@@ -7,13 +7,13 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.wzjian.jokercg"
+        applicationId "com.wzjer.jokercg"
         minSdkVersion 19
         targetSdkVersion 29
 
-        versionCode 818
+        versionCode 828
 
-        versionName "8.18"
+        versionName "8.28"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

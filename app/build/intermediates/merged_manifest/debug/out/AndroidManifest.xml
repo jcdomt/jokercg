@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wzjian.jokercg"
-    android:versionCode="818"
-    android:versionName="8.18" >
+    package="com.wzjer.jokercg"
+    android:versionCode="828"
+    android:versionName="8.28" >
 
     <uses-sdk
         android:minSdkVersion="19"
@@ -32,7 +32,7 @@
             android:name="xposedminversion"
             android:value="82" />
 
-        <activity android:name="com.wzjian.jokercg.MainActivity" >
+        <activity android:name="com.wzjer.jokercg.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

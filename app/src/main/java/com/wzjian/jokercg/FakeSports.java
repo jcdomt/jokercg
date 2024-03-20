@@ -1,5 +1,7 @@
 package com.wzjian.jokercg;
 
+import android.widget.TextView;
+
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,6 +11,11 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 
 public class FakeSports {
+    TextView clock;
+
+    public FakeSports() {
+    }
+
     public Object MakeFake(Object obj, Class<?> bean, ClassLoader classLoader) {
         try {
             double TARGET_KM = 2;
@@ -62,6 +69,7 @@ public class FakeSports {
                 minuteSpeed.add(miniteSpeedObject);
             }
 
+            //clock.setText(activeTime);
             bean.getField("dlTime").set(obj, activeTime);
             bean.getField("startDate").set(obj, beginTime);
             bean.getField("endDate").set(obj, endTime);

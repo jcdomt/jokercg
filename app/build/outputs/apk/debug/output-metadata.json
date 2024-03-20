@@ -4,14 +4,14 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.wzjian.jokercg",
+  "applicationId": "com.wzjer.jokercg",
   "variantName": "processDebugResources",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 818,
-      "versionName": "8.18",
+      "versionCode": 828,
+      "versionName": "8.28",
       "outputFile": "app-debug.apk"
     }
   ]

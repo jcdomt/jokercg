@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.wzjian.jokercg.R;
+import com.wzjer.jokercg.R;
 
 public class MainActivity extends AppCompatActivity {
 
