@@ -1,28 +1,23 @@
-package com.wzjian.jokercg;
+package com.wzjer.jokercg;
 
-import android.annotation.SuppressLint;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.ContextWrapper;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Objects;
+import java.lang.reflect.Parameter;
+import java.text.DecimalFormat;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
-import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class XposedInit implements IXposedHookLoadPackage {
+
+    Context global_context;
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
 
@@ -31,6 +26,7 @@ public class XposedInit implements IXposedHookLoadPackage {
 //        }
         if (lpparam.packageName.equals("net.crigh.cgsport")) {
             XposedBridge.log("找到创高包");
+
 
             Class<?> clazz = XposedHelpers.findClass("net.crigh.cgsport.model.UploadJsonSports", lpparam.classLoader);
             Method[] methods = clazz.getDeclaredMethods();
@@ -59,7 +55,6 @@ public class XposedInit implements IXposedHookLoadPackage {
             Method uploadDataFunc = null;
             Method m433Func = null;
             for (Method method : methods2) {
-                XposedBridge.log(method.getName());
                 if (method.getName().equals("uploadData")) uploadDataFunc = method;
                 if (method.getName().equals("箃報敚翀茲绡謨谉恗袼澬礲")) {
                     m433Func = method;
@@ -75,7 +70,10 @@ public class XposedInit implements IXposedHookLoadPackage {
                 protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                     String str = (String)param.args[0];
                     TextView view = (TextView) param.thisObject;
-                    if (str.length() == 8 && view.getTextSize() > 50 && view.getCurrentTextColor() == -1) param.args[0] = "00:11:45";
+                    if (str.length() == 8 && view.getTextSize() > 50 && view.getCurrentTextColor() == -1) {
+                        param.args[0] = "00:11:45";
+                        global_context = view.getContext();
+                    }
                 }
             });
 
@@ -98,6 +96,8 @@ public class XposedInit implements IXposedHookLoadPackage {
     final TextView[] clock = new TextView[1];
 
     public class HookBuild extends XC_MethodHook {
+        public Object Pacestr;
+        public Object MinuteSpeed;
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
             XposedBridge.log("hook build 方法");
@@ -106,17 +106,40 @@ public class XposedInit implements IXposedHookLoadPackage {
             //printWorld(param.args[0]);
             Class<?> sportBeanClass = XposedHelpers.findClass("net.crigh.cgsport.model.SportBean", param.thisObject.getClass().getClassLoader());
             FakeSports fake = new FakeSports();
+            Context context = global_context;
+
+            XposedBridge.log(context.getPackageName());
+
+            int v = fake.validateKey(context);
+            if (v <= 0) {
+                Toast.makeText(context, "次数不足，请充值", Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                Toast.makeText(context, "剩余"+String.valueOf(v)+"次", Toast.LENGTH_SHORT).show();
+            }
             Object fakedata = fake.MakeFake(param.args[0], sportBeanClass, param.thisObject.getClass().getClassLoader());
 
             //genData(param.args[0], fakedata);
             param.args[0] = fakedata;
+            Pacestr = sportBeanClass.getField("paceStr").get(fakedata);
+            MinuteSpeed = sportBeanClass.getField("minuteSpeedStr").get(fakedata);
 
             //printWorld(param.args[0]);
         }
 
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            printWorld(param.thisObject);
             // 在方法执行后 hook 的逻辑
+            Class<?> sportBeanClass = XposedHelpers.findClass("net.crigh.cgsport.model.UploadJsonSports", param.thisObject.getClass().getClassLoader());
+            sportBeanClass.getField("pace").set(param.thisObject, Pacestr);
+            sportBeanClass.getField("minuteSpeed").set(param.thisObject, MinuteSpeed);
+            String[] str = ((String)sportBeanClass.getField("beganPoint").get(param.thisObject)).split("\\|");
+            double x = Double.parseDouble(str[0])+0.1;
+            double y = Double.parseDouble(str[1])+0.1;
+            DecimalFormat df = new DecimalFormat("##.######");
+            sportBeanClass.getField("endPoint").set(param.thisObject, df.format(x)+"|"+df.format(y));
+            printWorld(param.thisObject);
         }
 
         protected Object genData(Object origin, Object fake) {

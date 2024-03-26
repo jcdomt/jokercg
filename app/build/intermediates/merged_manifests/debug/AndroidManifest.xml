@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wzjer.jokercg"
-    android:versionCode="828"
-    android:versionName="8.28" >
+    android:versionCode="817"
+    android:versionName="8.18" >
 
     <uses-sdk
         android:minSdkVersion="19"
         android:targetSdkVersion="29" />
 
-    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
-    <!-- 或者 -->
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-
     <application
+        android:name="com.wzjer.jokercg.MyApplication"
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"

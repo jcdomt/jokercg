@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:2:1-35:12
-INJECTED from C:\code\jokercg\app\src\main\AndroidManifest.xml:2:1-35:12
-INJECTED from C:\code\jokercg\app\src\main\AndroidManifest.xml:2:1-35:12
-INJECTED from C:\code\jokercg\app\src\main\AndroidManifest.xml:2:1-35:12
+ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:2:5-33:12
+INJECTED from C:\code\jokercg\app\src\main\AndroidManifest.xml:2:5-33:12
+INJECTED from C:\code\jokercg\app\src\main\AndroidManifest.xml:2:5-33:12
+INJECTED from C:\code\jokercg\app\src\main\AndroidManifest.xml:2:5-33:12
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\WZJian\.gradle\caches\transforms-3\95c539bf51513571c7eda11e620c6f11\transformed\material-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\WZJian\.gradle\caches\transforms-3\7bd854068f785bf1cf0ab0c8459f8b13\transformed\constraintlayout-2.0.4\AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat:1.2.0] C:\Users\WZJian\.gradle\caches\transforms-3\93723b3d30407e63ce4a1d87b59a0a24\transformed\appcompat-1.2.0\AndroidManifest.xml:17:1-24:12
@@ -31,37 +31,27 @@ MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\WZJian\.gradle\c
 MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\WZJian\.gradle\caches\transforms-3\5bb246de00b84ffc99708b8fd6b4fad2\transformed\lifecycle-livedata-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\WZJian\.gradle\caches\transforms-3\75f6c1612f2a432a2a880b7f35be2eda\transformed\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\WZJian\.gradle\caches\transforms-3\56b9d2d7b135c3493bad50a1bcea6b48\transformed\core-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
-INJECTED from C:\code\jokercg\app\src\main\AndroidManifest.xml:2:1-35:12
-INJECTED from C:\code\jokercg\app\src\main\AndroidManifest.xml:2:1-35:12
-INJECTED from C:\code\jokercg\app\src\main\AndroidManifest.xml:2:1-35:12
+INJECTED from C:\code\jokercg\app\src\main\AndroidManifest.xml:2:5-33:12
+INJECTED from C:\code\jokercg\app\src\main\AndroidManifest.xml:2:5-33:12
+INJECTED from C:\code\jokercg\app\src\main\AndroidManifest.xml:2:5-33:12
 	package
 		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:4:5-32
 		INJECTED from C:\code\jokercg\app\src\main\AndroidManifest.xml
 		INJECTED from C:\code\jokercg\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\code\jokercg\app\src\main\AndroidManifest.xml
-		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:2:1-35:12
+		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:2:5-33:12
 		INJECTED from C:\code\jokercg\app\src\main\AndroidManifest.xml
 	xmlns:tools
 		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:3:5-51
 	android:versionCode
 		INJECTED from C:\code\jokercg\app\src\main\AndroidManifest.xml
-		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:2:1-35:12
+		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:2:5-33:12
 		INJECTED from C:\code\jokercg\app\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:2:11-69
-uses-permission#android.permission.MEDIA_CONTENT_CONTROL
-ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:5:5-6:47
-	tools:ignore
-		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:6:9-44
-	android:name
-		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:5:22-77
-uses-permission#android.permission.BLUETOOTH
-ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:8:5-68
-	android:name
-		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:8:22-65
+		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:2:15-73
 application
-ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:9:5-33:19
+ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:6:5-31:19
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\WZJian\.gradle\caches\transforms-3\95c539bf51513571c7eda11e620c6f11\transformed\material-1.1.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\WZJian\.gradle\caches\transforms-3\95c539bf51513571c7eda11e620c6f11\transformed\material-1.1.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\WZJian\.gradle\caches\transforms-3\7bd854068f785bf1cf0ab0c8459f8b13\transformed\constraintlayout-2.0.4\AndroidManifest.xml:9:5-20
@@ -73,51 +63,53 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\WZ
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.3.1] C:\Users\WZJian\.gradle\caches\transforms-3\081f08c6f4a5e7c6e59b3c77d85f0f2a\transformed\core-1.3.1\AndroidManifest.xml:24:18-86
 	android:supportsRtl
-		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:15:9-35
+		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:13:9-35
 	android:label
-		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:13:9-41
+		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:11:9-41
 	android:exported
-		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:10:9-32
+		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:8:9-32
 	android:roundIcon
-		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:14:9-54
+		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:12:9-54
 	android:icon
-		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:12:9-43
+		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:10:9-43
 	android:allowBackup
-		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:11:9-35
+		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:9:9-35
 	android:theme
-		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:16:9-50
+		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:14:9-50
+	android:name
+		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:7:9-38
 meta-data#xposedmodule
-ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:17:9-19:35
+ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:15:9-17:35
 	android:value
-		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:19:13-33
+		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:17:13-33
 	android:name
-		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:18:13-40
+		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:16:13-40
 meta-data#xposeddescription
-ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:20:9-22:37
+ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:18:9-20:37
 	android:value
-		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:22:13-35
+		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:20:13-35
 	android:name
-		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:21:13-45
+		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:19:13-45
 meta-data#xposedminversion
-ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:23:9-25:33
+ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:21:9-23:33
 	android:value
-		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:25:13-31
+		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:23:13-31
 	android:name
-		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:24:13-44
+		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:22:13-44
 activity#com.wzjer.jokercg.MainActivity
-ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:26:9-32:20
+ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:24:9-30:20
 	android:name
-		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:26:19-47
+		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:24:19-47
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:27:13-31:29
+ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:25:13-29:29
 action#android.intent.action.MAIN
-ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:28:17-69
+ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:26:17-69
 	android:name
-		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:28:25-66
+		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:26:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:30:17-77
+ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:28:17-77
 	android:name
-		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:30:27-74
+		ADDED from C:\code\jokercg\app\src\main\AndroidManifest.xml:28:27-74
 uses-sdk
 INJECTED from C:\code\jokercg\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\code\jokercg\app\src\main\AndroidManifest.xml

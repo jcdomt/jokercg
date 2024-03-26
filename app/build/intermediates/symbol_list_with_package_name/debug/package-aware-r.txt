@@ -1608,6 +1608,7 @@ id cancel_button
 id center
 id center_horizontal
 id center_vertical
+id cgkey
 id chain
 id chains
 id checkbox
@@ -1775,6 +1776,7 @@ id right_side
 id rounded
 id save_non_transition_alpha
 id save_overlay_view
+id savebtn
 id sawtooth
 id scale
 id screen

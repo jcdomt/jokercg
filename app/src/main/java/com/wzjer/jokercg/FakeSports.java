@@ -1,11 +1,31 @@
-package com.wzjian.jokercg;
+package com.wzjer.jokercg;
 
+import android.app.Application;
+import android.content.Context;
+import android.os.Environment;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
@@ -31,12 +51,12 @@ public class FakeSports {
             long now = System.currentTimeMillis();
             // 计算 beginTime
             Calendar calBegin = Calendar.getInstance();
-            calBegin.setTimeInMillis((long) (now - minutes * 60000 - calBegin.getTimeZone().getOffset(now)));
+            calBegin.setTimeInMillis((long) (now - minutes * 60000));
             String beginTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(calBegin.getTime()).replace('T', ' ');
 
             // 计算 endTime
             Calendar calEnd = Calendar.getInstance();
-            calEnd.setTimeInMillis(now - calEnd.getTimeZone().getOffset(now));
+            calEnd.setTimeInMillis(now);
             String endTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(calEnd.getTime()).replace('T', ' ');
 //            String beginTime = (System.currentTimeMillis() - minutes * 60000 - TimeZone.getDefault().getOffset(System.currentTimeMillis()));
 //            String endTime = (new Date(now - new Date().getTimezoneOffset() * 60000)).toISOString().split('.')[0].replace('T', ' ');
@@ -54,8 +74,9 @@ public class FakeSports {
             for (int i = 1; i <= TARGET_KM; i++) {
                 Object cpacestrObject = cpacestrClass.newInstance();
                 cpacestrClass.getField("sportId").set(cpacestrObject, "");
-                cpacestrClass.getField("km").set(cpacestrObject, String.valueOf(i));
-                cpacestrClass.getField("t").set(cpacestrObject, String.valueOf(Math.round((speed + Math.random() * (i < minutes / 2 ? 1 : -1)) * 100.0) / 100.0));
+                cpacestrClass.getField("km").set(cpacestrObject, String.valueOf(1));
+                cpacestrClass.getField("t").set(cpacestrObject, padZero(minutesPerKM-Math.random() * 1.5)+"'"+padZero(Math.random() * 60)+"''");
+
                 paceStr.add(cpacestrObject);
             }
 
@@ -65,7 +86,7 @@ public class FakeSports {
                 Object miniteSpeedObject = miniteSpeedClazz.newInstance();
                 miniteSpeedClazz.getField("sportId").set(miniteSpeedObject, "");
                 miniteSpeedClazz.getField("min").set(miniteSpeedObject, String.valueOf(i));
-                miniteSpeedClazz.getField("v").set(miniteSpeedObject, String.valueOf((speed + Math.random() * (i < minutes / 2 ? 1 : -1) * 100.0) / 100.0));
+                miniteSpeedClazz.getField("v").set(miniteSpeedObject, String.valueOf(Math.round((speed + Math.random() * (i < minutes / 2 ? 1 : -1)) * 100.0) / 100.0));
                 minuteSpeed.add(miniteSpeedObject);
             }
 
@@ -117,4 +138,44 @@ public class FakeSports {
         }
         return String.valueOf(intValue);
     }
+
+
+    public int validateKey(Context context) throws IOException {
+        String key = readFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) +  "/cgkey.txt");
+
+        XposedBridge.log("剩余："+key);
+        String responseData = HttpUtils.getData("https://xyyyy.top/api/cg.php?key=" + key);
+        return Integer.parseInt(responseData);
+    }
+
+
+
+    // 读取文件的方法
+    public String readFile(String filePath) {
+        StringBuilder data = new StringBuilder();
+        BufferedReader reader = null;
+        try {
+            File file = new File(filePath);
+            reader = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                data.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return data.toString();
+    }
+
+
+
+
 }
