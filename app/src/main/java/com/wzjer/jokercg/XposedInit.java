@@ -1,12 +1,14 @@
 package com.wzjer.jokercg;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.ContextWrapper;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.text.DecimalFormat;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -15,17 +17,94 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
+import com.wzjer.jokercg.hook.*;
 public class XposedInit implements IXposedHookLoadPackage {
 
-    Context global_context;
+    public static Context global_context;
+    public static Method encryptMethod;
+    public static Class<?> encryptClazz;
+    public static ClassLoader classloader;
+    public static Class<?> deviceClazz;
+    public class EncryptReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            abortBroadcast();
+
+            Object[] args = new Object[2];
+            //args[0] = intent.getExtras().getString("a1");
+            //args[1] = intent.getExtras().getString("a2");
+
+            args[0] = staticData.secret;
+            args[1] = "/api/l/v6/statistics?xh=zhe_ge_qi_shi_mei_yong_kan_header_de_shi&beginTime=1708272000000&endTime=1725119999000&type=TERM";
+            String url = "https://ggtypt.njtech.edu.cn/cgapp-server"+args[1];
+
+
+            Object result = XposedHelpers.callStaticMethod(encryptClazz,"cgapiEnrypt", args);
+            String r = (String)result;
+
+            String cli= (String) XposedHelpers.callStaticMethod(deviceClazz, "煻刊");
+            String imei = (String) XposedHelpers.callStaticMethod(deviceClazz,"烊鐔铄皭恽偛");
+            String v1 = (String) XposedHelpers.callStaticMethod(deviceClazz, "骡鮿繤溇霖恖");
+
+            staticData.ua = "cgapp/2.9.5 (Linux; Android 14; Xiaomi/UKQ1.230804.001)";
+
+            if (staticData.token.equals("")) return;
+
+            Intent i = new Intent("cgencrypt_result");
+            i.putExtra("r", (String) result);
+            i.putExtra("token", staticData.token);
+            i.putExtra("client", cli);
+            i.putExtra("imei", imei);
+            i.putExtra("ua", staticData.ua);
+            i.putExtra("v1", v1);
+
+            //util.writeFile(context,"abd.txt","result");
+
+            String[] split = r.split("\\|");
+            String sign = split[3];
+            String time = split[1];
+            new Thread(new Runnable(){
+                @Override
+                public void run() {
+                    XposedBridge.log(HttpUtils.http(url,sign,time,v1,imei,staticData.ua,cli,staticData.token));
+                }
+            }).start();
+
+
+            util.writeFile(context,"aa.txt",(String) result+"\n"+staticData.token+"\n"+cli+"\n"+imei+"\n"+staticData.ua+"\n"+v1);
+            ContextWrapper c = new ContextWrapper(context);
+            c.sendBroadcast(i);
+        }
+
+    }
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
+        classloader = lpparam.classLoader;
 
-//        if (!lpparam.packageName.equals("com.ang.target")) {
-//            return;
-//        }
+
+        // context 获取
         if (lpparam.packageName.equals("net.crigh.cgsport")) {
-            XposedBridge.log("找到创高包");
+            deviceClazz = XposedHelpers.findClass("珂函筙.櫼螉彬彆.亏雄開邠煱嘂咔娡葘戭.阙蔬.熏燵婨左崘畱噛淜",classloader);
+            //staticData.ua = (String) XposedHelpers.callStaticMethod(XposedHelpers.findClass("net.crigh.library.base.BaseApplication",classloader),"setUserAgent");
+
+
+            XposedHelpers.findAndHookMethod(
+                    "android.app.Application",
+                    lpparam.classLoader,
+                    "attach",
+                    Context.class,
+                    new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            // 在这里获取 Context
+                            global_context = (Context) param.args[0];
+                            IntentFilter intentFilter = new IntentFilter();
+                            intentFilter.addAction("cgencrypt_send");
+                            global_context.registerReceiver(new EncryptReceiver(), intentFilter);
+                        }
+                    }
+            );
 
 
             Class<?> clazz = XposedHelpers.findClass("net.crigh.cgsport.model.UploadJsonSports", lpparam.classLoader);
@@ -33,7 +112,15 @@ public class XposedInit implements IXposedHookLoadPackage {
             for (Method method : methods) {
                 if (method.getName().equals("build")) {
                     XposedBridge.hookMethod(method,new HookBuild());
-                    XposedBridge.log("找到build方法");
+                }
+            }
+
+            Class <?> HookActivityClazz = XposedHelpers.findClass("android.app.Activity", lpparam.classLoader);
+            Method[] ActivityMethods = HookActivityClazz.getDeclaredMethods();
+            for (Method method : ActivityMethods) {
+                if (method.getName().equals("startActivityForResult")) {
+                    XposedBridge.hookMethod(method,new ActivityHook());
+                    //XposedBridge.log("找到startActivityForResult方法");
                 }
             }
 
@@ -59,24 +146,46 @@ public class XposedInit implements IXposedHookLoadPackage {
                 if (method.getName().equals("箃報敚翀茲绡謨谉恗袼澬礲")) {
                     m433Func = method;
                     XposedBridge.hookMethod(method,new HookM433(uploadDataFunc));
-                    XposedBridge.log("找到m433方法");
+                    //XposedBridge.log("找到m433方法");
                 }
             }
 
+            // 这个是用于获取 HTTP 的 token 的
+            Class <?> tokenClazz = XposedHelpers.findClass("縰丒鰬湓篚爀槽蟡塱溹斠.彐叐凴瀱砰漆摯.櫼螉彬彆.彐叐凴瀱砰漆摯.梍遴蟪迳庘橞燶蟸廮", lpparam.classLoader);
+            Method[] tokenMethods = tokenClazz.getDeclaredMethods();
+            for (Method method : tokenMethods) {
+                if (method.getName().equals("昚娍小肂卽韫飰")) {
+                    XposedBridge.hookMethod(method, new tokenHook());
+                    XposedBridge.log("成功劫持 TOKEN 函数");
+                }
+            }
 
 
             XposedHelpers.findAndHookMethod(TextView.class, "setText", CharSequence.class, new XC_MethodHook() {
                 @Override
                 protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                     String str = (String)param.args[0];
+                    if (str == null) return;
                     TextView view = (TextView) param.thisObject;
                     if (str.length() == 8 && view.getTextSize() > 50 && view.getCurrentTextColor() == -1) {
                         param.args[0] = "00:11:45";
-                        global_context = view.getContext();
+                        //global_context = view.getContext();
                     }
                 }
             });
 
+
+
+            Class<?> clazz_temp = XposedHelpers.findClass("net.crigh.api.encrypt.ChingoEncrypt", lpparam.classLoader);
+            encryptClazz = clazz_temp;
+            Method[] methods_temp = clazz_temp.getDeclaredMethods();
+            for (Method method : methods_temp) {
+                if (method.getName().equals("cgapiEnrypt")) {
+                    encryptMethod = method;
+                    XposedBridge.hookMethod(method,new tempHook());
+                    //XposedBridge.log("找到cgapiEnrypt方法");
+                }
+            }
 
 //            Class<?> targetClass = XposedHelpers.findClass("java.lang.Integer", lpparam.classLoader);
 //            methods = targetClass.getDeclaredMethods();
@@ -94,80 +203,6 @@ public class XposedInit implements IXposedHookLoadPackage {
         }
     }
     final TextView[] clock = new TextView[1];
-
-    public class HookBuild extends XC_MethodHook {
-        public Object Pacestr;
-        public Object MinuteSpeed;
-        @Override
-        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-            XposedBridge.log("hook build 方法");
-            // 在方法执行前 hook 的逻辑
-            super.afterHookedMethod(param);
-            //printWorld(param.args[0]);
-            Class<?> sportBeanClass = XposedHelpers.findClass("net.crigh.cgsport.model.SportBean", param.thisObject.getClass().getClassLoader());
-            FakeSports fake = new FakeSports();
-            Context context = global_context;
-
-            XposedBridge.log(context.getPackageName());
-
-            int v = fake.validateKey(context);
-            if (v <= 0) {
-                Toast.makeText(context, "次数不足，请充值", Toast.LENGTH_SHORT).show();
-                return;
-            } else {
-                Toast.makeText(context, "剩余"+String.valueOf(v)+"次", Toast.LENGTH_SHORT).show();
-            }
-            Object fakedata = fake.MakeFake(param.args[0], sportBeanClass, param.thisObject.getClass().getClassLoader());
-
-            //genData(param.args[0], fakedata);
-            param.args[0] = fakedata;
-            Pacestr = sportBeanClass.getField("paceStr").get(fakedata);
-            MinuteSpeed = sportBeanClass.getField("minuteSpeedStr").get(fakedata);
-
-            //printWorld(param.args[0]);
-        }
-
-        @Override
-        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            printWorld(param.thisObject);
-            // 在方法执行后 hook 的逻辑
-            Class<?> sportBeanClass = XposedHelpers.findClass("net.crigh.cgsport.model.UploadJsonSports", param.thisObject.getClass().getClassLoader());
-            sportBeanClass.getField("pace").set(param.thisObject, Pacestr);
-            sportBeanClass.getField("minuteSpeed").set(param.thisObject, MinuteSpeed);
-            String[] str = ((String)sportBeanClass.getField("beganPoint").get(param.thisObject)).split("\\|");
-            double x = Double.parseDouble(str[0])+0.1;
-            double y = Double.parseDouble(str[1])+0.1;
-            DecimalFormat df = new DecimalFormat("##.######");
-            sportBeanClass.getField("endPoint").set(param.thisObject, df.format(x)+"|"+df.format(y));
-            printWorld(param.thisObject);
-        }
-
-        protected Object genData(Object origin, Object fake) {
-            Class<?> originClass = origin.getClass();
-            Class<?> FakeClass = fake.getClass();
-
-            Field[] fakeFields = FakeClass.getDeclaredFields();
-            Field[] originField = originClass.getDeclaredFields();
-
-            for (Field field : fakeFields) {
-                field.setAccessible(true); // 使私有字段可访问
-                try {
-                    if (field.get(fake).equals(null)) {
-                        field.set(fake, originClass.getField(field.getName()).get(origin));
-                    }
-                    //XposedBridge.log("\t" + field.getName() + ": " + field.get(obj));
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (NoSuchFieldException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-
-            return fake;
-        }
-
-    }
 
     protected void printWorld(Object obj) {
         Class<?> clazz = obj.getClass();

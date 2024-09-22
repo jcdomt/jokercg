@@ -48,6 +48,10 @@
         "source": "C:\\code\\jokercg\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_launcher_background.png"
     },
     {
+        "merged": "C:\\code\\jokercg\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_joker.xml.flat",
+        "source": "C:\\code\\jokercg\\app\\src\\main\\res\\layout\\activity_joker.xml"
+    },
+    {
         "merged": "C:\\code\\jokercg\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_ic_launcher.xml.flat",
         "source": "C:\\code\\jokercg\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher.xml"
     },

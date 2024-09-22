@@ -11,9 +11,47 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class HttpUtils {
 
     private static final String TAG = "HttpUtils";
+
+
+
+
+    static public String http(String url,String sign, String timestamp, String v1, String imei, String ua, String cli, String cgAuthorization) {
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("cgAuthorization",cgAuthorization)
+                .addHeader("client",cli)
+                .addHeader("sign",sign)
+                .addHeader("timestamp",timestamp)
+                .addHeader("v1",v1)
+                .addHeader("imei",imei)
+                .addHeader("User-Agent",ua)
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                String responseBody = response.body().string();
+                return responseBody;
+                // 处理响应数据
+            } else {
+                // 处理错误情况
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return url;
+    }
+
 
     public static String getData(String urlString) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
