@@ -1,4 +1,0 @@
-#Sat Sep 21 13:02:06 CST 2024
-base.0=C\:\\code\\jokercg\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
